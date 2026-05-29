@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Allan E. Manumbas — Digital Card</title>
+<meta name="theme-color" content="#0a2540">
+<meta name="description" content="Allan E. Manumbas — Senior HSE Professional, Dubai UAE. Digital business card.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a2540;
+    --navy-2:#0d2e4f;
+    --navy-3:#103a63;
+    --ink:#0a2540;
+    --paper:#ffffff;
+    --paper-2:#f5f7fa;
+    --line:#e4e9f0;
+    --muted:#5d6b7e;
+    --muted-2:#8593a4;
+    --gold:#c4a052;
+    --gold-soft:#e7d6a8;
+    --whats:#25d366;
+    --radius:22px;
+    --shadow:0 30px 70px -25px rgba(10,37,64,.55), 0 8px 24px -12px rgba(10,37,64,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:"Archivo",system-ui,sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    min-height:100dvh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:28px 18px 40px;
+    background:
+      radial-gradient(120% 80% at 50% -10%, #14385f 0%, var(--navy) 46%, #061a30 100%);
+    position:relative;
+    overflow-x:hidden;
+  }
+  /* faint blueprint grid in the backdrop */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(120% 80% at 50% 0%, #000 30%, transparent 78%);
+            mask-image:radial-gradient(120% 80% at 50% 0%, #000 30%, transparent 78%);
+    pointer-events:none;
+  }
+
+  .card{
+    position:relative;
+    width:100%;
+    max-width:404px;
+    flex:0 0 auto;
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    z-index:1;
+  }
+
+  /* ---------- header ---------- */
+  .head{
+    position:relative;
+    padding:30px 26px 24px;
+    background:
+      radial-gradient(120% 120% at 85% -20%, var(--navy-3) 0%, var(--navy) 55%, #07203a 100%);
+    color:#fff;
+    overflow:hidden;
+  }
+  .head::after{ /* corner accent */
+    content:"";
+    position:absolute;top:0;right:0;
+    width:120px;height:120px;
+    background:radial-gradient(circle at 100% 0, rgba(196,160,82,.30), transparent 62%);
+    pointer-events:none;
+  }
+  .topline{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:10px;
+    position:relative;z-index:2;
+  }
+  .monogram{
+    display:flex;align-items:center;gap:11px;
+  }
+  .mono-mark{
+    width:38px;height:38px;border-radius:9px;
+    border:1.5px solid rgba(231,214,168,.55);
+    display:grid;place-items:center;
+    font-weight:700;letter-spacing:.5px;font-size:14px;
+    color:var(--gold-soft);
+    background:rgba(255,255,255,.04);
+  }
+  .mono-txt{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#aebfd2;font-weight:600;line-height:1.5;}
+  .mono-txt b{display:block;color:#fff;letter-spacing:.18em;font-weight:600;}
+  .badge{
+    font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+    color:#0a2540;background:var(--gold-soft);
+    padding:6px 10px;border-radius:100px;white-space:nowrap;
+    display:flex;align-items:center;gap:6px;
+  }
+  .badge .dot{width:6px;height:6px;border-radius:50%;background:#1d7a3e;box-shadow:0 0 0 3px rgba(29,122,62,.22);}
+
+  .identity{
+    position:relative;z-index:2;
+    margin-top:26px;
+    display:flex;gap:18px;align-items:center;
+  }
+  .portrait{
+    width:96px;height:96px;flex:0 0 96px;
+    border-radius:18px;
+    object-fit:cover;object-position:50% 22%;
+    border:2px solid rgba(231,214,168,.5);
+    background:#0d2e4f;
+    box-shadow:0 10px 26px -12px rgba(0,0,0,.6);
+  }
+  .name{
+    font-size:30px;line-height:1.02;font-weight:700;letter-spacing:-.01em;
+  }
+  .name .last{
+    font-family:"Newsreader",serif;font-style:italic;font-weight:500;
+    color:var(--gold-soft);
+    letter-spacing:0;
+  }
+  .role{
+    margin-top:9px;
+    font-size:13px;font-weight:600;color:#cdd9e8;letter-spacing:.01em;
+  }
+  .role .pipe{color:var(--gold);margin:0 6px;}
+
+  /* ---------- stat strip ---------- */
+  .stats{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    background:var(--navy-2);
+    border-top:1px solid rgba(255,255,255,.07);
+  }
+  .stat{padding:13px 8px;text-align:center;color:#fff;border-right:1px solid rgba(255,255,255,.07);}
+  .stat:last-child{border-right:0;}
+  .stat b{display:block;font-size:19px;font-weight:700;line-height:1;}
+  .stat span{display:block;margin-top:5px;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#9fb1c6;font-weight:600;}
+
+  /* ---------- body ---------- */
+  .body{padding:24px 22px 8px;}
+  .tag{
+    font-size:13.5px;line-height:1.55;color:var(--muted);text-wrap:pretty;
+  }
+  .tag b{color:var(--ink);font-weight:600;}
+
+  .section-label{
+    display:flex;align-items:center;gap:10px;
+    margin:24px 0 13px;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--muted-2);
+  }
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  /* contact rows */
+  .contacts{display:flex;flex-direction:column;gap:9px;}
+  .crow{
+    display:flex;align-items:center;gap:14px;
+    text-decoration:none;color:inherit;
+    padding:12px 14px;
+    border:1px solid var(--line);border-radius:14px;
+    background:var(--paper);
+    transition:border-color .18s, transform .18s, box-shadow .18s;
+  }
+  .crow:active{transform:scale(.985);}
+  @media (hover:hover){
+    .crow:hover{border-color:#c9d4e2;box-shadow:0 10px 24px -16px rgba(10,37,64,.4);}
+  }
+  .cicon{
+    width:42px;height:42px;flex:0 0 42px;border-radius:11px;
+    display:grid;place-items:center;
+    background:var(--paper-2);color:var(--navy);
+    border:1px solid var(--line);
+  }
+  .cicon svg{width:20px;height:20px;}
+  .crow.wa .cicon{background:rgba(37,211,102,.12);color:#128c43;border-color:rgba(37,211,102,.25);}
+  .ctext{min-width:0;flex:1;}
+  .ctext .k{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);font-weight:700;}
+  .ctext .v{font-size:14.5px;font-weight:600;color:var(--ink);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .chev{margin-left:auto;color:var(--muted-2);flex:0 0 auto;}
+  .chev svg{width:16px;height:16px;display:block;}
+
+  /* primary actions */
+  .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
+  .btn{
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    padding:15px 12px;border-radius:14px;border:none;cursor:pointer;
+    font-family:inherit;font-size:13.5px;font-weight:600;letter-spacing:.01em;
+    text-decoration:none;transition:transform .15s, filter .18s, box-shadow .18s;
+  }
+  .btn svg{width:18px;height:18px;}
+  .btn:active{transform:scale(.97);}
+  .btn-primary{
+    grid-column:1 / -1;
+    background:linear-gradient(180deg,#123a63,var(--navy));
+    color:#fff;box-shadow:0 14px 30px -14px rgba(10,37,64,.7);
+  }
+  @media (hover:hover){.btn-primary:hover{filter:brightness(1.08);}}
+  .btn-ghost{
+    background:var(--paper);color:var(--navy);border:1px solid var(--line);
+  }
+  @media (hover:hover){.btn-ghost:hover{border-color:#c9d4e2;background:var(--paper-2);}}
+
+  /* QR block */
+  .qr-wrap{
+    margin-top:22px;
+    display:flex;align-items:center;gap:16px;
+    padding:16px;
+    border:1px solid var(--line);border-radius:16px;
+    background:linear-gradient(180deg,#fbfcfe,#f3f6fa);
+  }
+  .qr-box{
+    width:96px;height:96px;flex:0 0 96px;
+    background:#fff;border-radius:12px;padding:8px;
+    border:1px solid var(--line);
+    display:grid;place-items:center;
+  }
+  .qr-box canvas,.qr-box svg,.qr-box img{width:100%!important;height:100%!important;display:block;border-radius:4px;}
+  .qr-cap .k{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);font-weight:700;}
+  .qr-cap .t{font-size:15px;font-weight:700;color:var(--ink);margin-top:4px;}
+  .qr-cap .s{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.45;text-wrap:pretty;}
+  .qr-cap a{color:var(--navy);font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold);}
+
+  /* footer */
+  .foot{
+    margin-top:20px;padding:16px 22px 22px;
+    border-top:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    flex-wrap:wrap;
+  }
+  .foot .loc{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);font-weight:500;}
+  .foot .loc svg{width:14px;height:14px;color:var(--gold);}
+  .foot .cr{font-size:10.5px;color:var(--muted-2);letter-spacing:.04em;}
+
+  .share-hint{
+    text-align:center;color:#9fb1c6;font-size:11px;letter-spacing:.04em;
+    margin-top:18px;z-index:1;position:relative;
+  }
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translate(-50%,18px);
+    background:#0a2540;color:#fff;border:1px solid rgba(255,255,255,.16);
+    padding:12px 18px;border-radius:100px;font-size:13px;font-weight:600;
+    letter-spacing:.01em;box-shadow:0 14px 34px -12px rgba(0,0,0,.6);
+    display:flex;align-items:center;gap:9px;
+    opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:50;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+  .toast svg{width:16px;height:16px;color:#5fd08a;}
+</style>
+</head>
+<body>
+  <main class="card" data-screen-label="Digital Business Card">
+
+    <header class="head">
+      <div class="topline">
+        <div class="monogram">
+          <div class="mono-mark">AM</div>
+          <div class="mono-txt">Allan E.<b>Manumbas</b></div>
+        </div>
+        <div class="badge"><span class="dot"></span>Available</div>
+      </div>
+
+      <div class="identity">
+        <img class="portrait" alt="Allan E. Manumbas"
+             src="https://allanmanumbas.github.io/logos/portrait.png">
+        <div>
+          <h1 class="name">Allan E.<br><span class="last">Manumbas</span></h1>
+          <p class="role">Senior HSE Professional<span class="pipe">·</span>Dubai, UAE</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="stats">
+      <div class="stat"><b>20+</b><span>Years UAE</span></div>
+      <div class="stat"><b>24+</b><span>Projects</span></div>
+      <div class="stat"><b>ISO</b><span>Lead Auditor</span></div>
+    </div>
+
+    <div class="body">
+      <p class="tag">Senior HSE leadership across UAE <b>construction, fit-out, infrastructure &amp; heavy lifting</b> — building safety programs that hold up under real site pressure and produce decision-grade data for management.</p>
+
+      <div class="section-label">Get in touch</div>
+      <div class="contacts">
+        <a class="crow wa" href="https://wa.me/971557497785" target="_blank" rel="noopener">
+          <span class="cicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.06 24l1.68-6.13A11.86 11.86 0 0 1 .16 11.9C.16 5.34 5.5 0 12.06 0a11.82 11.82 0 0 1 8.41 3.49 11.82 11.82 0 0 1 3.48 8.42c0 6.56-5.34 11.9-11.9 11.9a11.9 11.9 0 0 1-5.68-1.45L.06 24zM6.6 20.13l.36.22a9.86 9.86 0 0 0 5.02 1.38h.01c5.45 0 9.89-4.43 9.89-9.88a9.82 9.82 0 0 0-2.9-6.99 9.82 9.82 0 0 0-6.98-2.9c-5.46 0-9.9 4.44-9.9 9.89a9.86 9.86 0 0 0 1.51 5.26l.24.38-1 3.64 3.75-1zm11.39-5.55c-.07-.12-.27-.2-.56-.34-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.87 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41z"/></svg>
+          </span>
+          <span class="ctext"><span class="k">Phone · WhatsApp</span><span class="v">+971 55 749 7785</span></span>
+          <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+        </a>
+
+        <a class="crow" id="emailRow" href="#" role="button">
+          <span class="cicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+          </span>
+          <span class="ctext"><span class="k">Email · tap to copy</span><span class="v" id="emailText">&nbsp;</span></span>
+          <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+        </a>
+
+        <a class="crow" href="https://allanmanumbas.github.io" target="_blank" rel="noopener">
+          <span class="cicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>
+          </span>
+          <span class="ctext"><span class="k">Website · Full CV</span><span class="v">allanmanumbas.github.io</span></span>
+          <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+        </a>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="saveContact" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+          Save Contact
+        </button>
+        <a class="btn btn-ghost" href="https://allanmanumbas.github.io/Allan%20Manumbas%20-%20CV.pdf" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
+          Download CV
+        </a>
+        <a class="btn btn-ghost" id="shareBtn" href="https://allanmanumbas.github.io" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+          Share Card
+        </a>
+      </div>
+
+      <div class="section-label">Scan for the full profile</div>
+      <div class="qr-wrap">
+        <div class="qr-box"><div id="qr"></div></div>
+        <div class="qr-cap">
+          <div class="k">Point camera here</div>
+          <div class="t">View the full CV &amp; project history</div>
+          <div class="s"><a href="https://allanmanumbas.github.io" target="_blank" rel="noopener">allanmanumbas.github.io</a></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <span class="loc">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.4-7-11a7 7 0 0 1 14 0c0 4.6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Dubai · U.A.E.
+      </span>
+      <span class="cr">© 2026 Allan E. Manumbas</span>
+    </footer>
+  </main>
+
+  <p class="share-hint">Tap any item to connect · Add to your contacts in one tap</p>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+  // Email assembled from parts so no scanner/CDN can rewrite it into a broken link
+  var EMAIL_USER = "allanmanumbas", EMAIL_DOMAIN = "yahoo.com";
+  var EMAIL = EMAIL_USER + "@" + EMAIL_DOMAIN;
+  document.getElementById("emailText").textContent = EMAIL;
+
+  // ---- QR code to the website ----
+  (function(){
+    var url = "https://allanmanumbas.github.io";
+    var el = document.getElementById("qr");
+    function fallback(){
+      var img = document.createElement("img");
+      img.alt = "QR code to allanmanumbas.github.io";
+      img.src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=0&color=0a2540&data="+encodeURIComponent(url);
+      el.innerHTML = ""; el.appendChild(img);
+    }
+    if (window.QRCode && QRCode.toCanvas){
+      var c = document.createElement("canvas");
+      QRCode.toCanvas(c, url, {margin:0, width:240, color:{dark:"#0a2540", light:"#ffffff"}}, function(err){
+        if(err){ fallback(); return; }
+        el.innerHTML=""; el.appendChild(c);
+      });
+    } else {
+      fallback();
+    }
+  })();
+
+  // ---- Save Contact (vCard download) ----
+  document.getElementById("saveContact").addEventListener("click", function(){
+    var vcf = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "N:Manumbas;Allan;E.;;",
+      "FN:Allan E. Manumbas",
+      "TITLE:Senior HSE Professional",
+      "TEL;TYPE=CELL,VOICE:+971557497785",
+      "EMAIL;TYPE=INTERNET:" + EMAIL,
+      "URL:https://allanmanumbas.github.io",
+      "ADR;TYPE=WORK:;;;Dubai;;;United Arab Emirates",
+      "NOTE:Senior HSE Professional — UAE Construction, Fit-Out, Infrastructure & Heavy Lifting. NEBOSH, IOSH, ISO Lead Auditor (45001/14001/9001).",
+      "PHOTO;VALUE=URI:https://allanmanumbas.github.io/logos/portrait.png",
+      "REV:2026-05-29T00:00:00Z",
+      "END:VCARD"
+    ].join("\r\n");
+    var blob = new Blob([vcf], {type:"text/vcard;charset=utf-8"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Allan-Manumbas.vcf";
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  });
+
+  // ---- Toast helper ----
+  function showToast(msg){
+    var t = document.getElementById("toast");
+    t.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg>' + msg;
+    t.classList.add("show");
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function(){ t.classList.remove("show"); }, 2400);
+  }
+
+  // ---- Email: copy to clipboard, then try to open mail app ----
+  document.getElementById("emailRow").addEventListener("click", function(e){
+    e.preventDefault();
+    var email = EMAIL;
+    function copy(){
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        return navigator.clipboard.writeText(email);
+      }
+      return new Promise(function(res){
+        var ta=document.createElement("textarea");ta.value=email;ta.style.position="fixed";ta.style.opacity="0";
+        document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(_){}
+        ta.remove();res();
+      });
+    }
+    copy().then(function(){ showToast("Email copied — " + email); })
+          .catch(function(){ showToast("Email: " + email); });
+    // also try to open the mail app for users who have one configured
+    setTimeout(function(){ window.location.href = "mailto:" + email + "?subject=HSE%20Opportunity"; }, 350);
+  });
+
+  // ---- Share (native share where available) ----
+  document.getElementById("shareBtn").addEventListener("click", function(e){
+    if (navigator.share){
+      e.preventDefault();
+      navigator.share({
+        title:"Allan E. Manumbas — Senior HSE Professional",
+        text:"Senior HSE Professional · Dubai, UAE",
+        url:"https://allanmanumbas.github.io"
+      }).catch(function(){});
+    }
+  });
+</script>
+</body>
+</html>
