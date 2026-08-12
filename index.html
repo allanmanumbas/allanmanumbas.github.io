@@ -222,11 +222,23 @@ section + section { border-top: 1px solid var(--line); }
   bottom: 0; left: 0; right: 0; height: 1px;
   background: linear-gradient(to right, transparent, var(--line), transparent);
 }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(10,37,64,0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: linear-gradient(115deg, transparent 0%, transparent 36%, black 64%, black 100%);
+  mask-image: linear-gradient(115deg, transparent 0%, transparent 36%, black 64%, black 100%);
+  pointer-events: none;
+}
 .hero-grid {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: 80px;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
@@ -361,6 +373,42 @@ section + section { border-top: 1px solid var(--line); }
   font-size: 16px;
   color: var(--navy);
   letter-spacing: -0.005em;
+}
+.hero-portrait-badge {
+  position: absolute;
+  top: -18px; right: -18px;
+  background: var(--navy);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 4px;
+  box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; gap: 10px;
+  max-width: 190px;
+}
+.hero-portrait-badge .badge-ic {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  display: grid; place-items: center;
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.hero-portrait-badge .txt {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.hero-portrait-badge .txt .sub {
+  display: block;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9fb3cb;
+  margin-top: 2px;
 }
 
 /* ───── Stats strip ───── */
@@ -587,24 +635,39 @@ section + section { border-top: 1px solid var(--line); }
   font-weight: 500;
 }
 .exp-projects {
-  display: flex; flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
   padding-top: 22px;
   margin-top: 4px;
   border-top: 1px dashed var(--line);
 }
 .exp-project {
+  display: flex; flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 14px 16px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  transition: all 220ms ease;
+}
+.exp-project:hover {
+  border-color: var(--line-2);
+  background: var(--bg-2);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+.exp-project-name {
+  font-weight: 500;
   font-size: 14.5px;
   color: var(--charcoal);
-  line-height: 1.5;
-  display: flex; flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
+  line-height: 1.35;
 }
-.exp-project-name { font-weight: 500; }
 .exp-project-meta {
   color: var(--ink-3);
-  font-size: 13px;
+  font-size: 12.5px;
+  line-height: 1.4;
 }
 .exp-tag {
   display: inline-block;
@@ -618,6 +681,7 @@ section + section { border-top: 1px solid var(--line); }
   background: var(--bg-soft);
   border: 1px solid var(--line-2);
   color: var(--ink-2);
+  order: -1;
 }
 .exp-tag.t-highrise { background: #eef2f7; color: #1e3a5f; border-color: #d6e0ec; }
 .exp-tag.t-fitout { background: #fef3ed; color: #9a3409; border-color: #fcd5b8; }
@@ -905,6 +969,7 @@ section + section { border-top: 1px solid var(--line); }
   .hero-tagline { font-size: 15px; }
   .hero-portrait { width: 220px; height: 280px; }
   .hero-portrait-stamp { display: none; }
+  .hero-portrait-badge { display: none; }
   .stat { padding: 28px 24px; }
   .stat-fig { font-size: 36px; }
   .stat-fig .suf { font-size: 20px; }
@@ -919,7 +984,7 @@ section + section { border-top: 1px solid var(--line); }
 
 /* Print */
 @media print {
-  .nav, .hero-cta, .hero-trust, .contact, .footer, .nav-toggle { display: none; }
+  .nav, .hero-cta, .hero-trust, .contact, .footer, .nav-toggle, .hero-portrait-badge, .hero::before { display: none; }
   body { background: #fff; color: #000; }
   .hero { padding: 24px 0; }
   .stats, .impact, .contact { background: #fff; color: #000; }
@@ -994,6 +1059,10 @@ section + section { border-top: 1px solid var(--line); }
       <div class="hero-portrait-wrap reveal">
         <div class="hero-portrait">
           <img src="logos/portrait.png" alt="Allan E. Manumbas, Senior HSE Professional">
+</div>
+        <div class="hero-portrait-badge">
+          <span class="badge-ic">7</span>
+          <span class="txt">Credentials held<span class="sub">incl. ISO Lead Auditor</span></span>
 </div>
         <div class="hero-portrait-stamp">
           <span class="lbl">Current role</span>
@@ -1162,16 +1231,16 @@ section + section { border-top: 1px solid var(--line); }
 </div>
 </div>
         <div class="exp-projects">
-          <div class="exp-project"><span class="exp-project-name">LOC, Abu Dhabi</span><span class="exp-project-meta">Client: Sanad · Gencon: Besix</span></div>
-          <div class="exp-project"><span class="exp-project-name">One Zaabeel Tower</span><span class="exp-project-meta">Landmark mixed-use development</span></div>
-          <div class="exp-project"><span class="exp-project-name">O Beach, Al Habtoor Grand Resort</span><span class="exp-project-meta">Dubai Marina</span></div>
-          <div class="exp-project"><span class="exp-project-name">Bluewaters</span><span class="exp-project-meta">Client: Meraas</span></div>
-          <div class="exp-project"><span class="exp-project-name">EXPO 2020</span><span class="exp-project-meta">Pavilion fit-out &amp; infrastructure</span></div>
-          <div class="exp-project"><span class="exp-project-name">The Gardens — Jebel Ali</span><span class="exp-project-meta">Client: Nakheel · Consultant: Mirage</span></div>
-          <div class="exp-project"><span class="exp-project-name">City Walk — Buildings B3 &amp; B6</span><span class="exp-project-meta">Client: Meraas · Consultant: North 25</span></div>
-          <div class="exp-project"><span class="exp-project-name">M4 Redevelopment (The Beach), JBR</span><span class="exp-project-meta">Client: Meraas · Consultant: North 25</span></div>
-          <div class="exp-project"><span class="exp-project-name">Duja Tower — Recladding &amp; Fire Rectification</span><span class="exp-project-meta">Client: Lootah · Consultant: NEB</span></div>
-          <div class="exp-project"><span class="exp-project-name">Torch Tower 3 — Recladding, Dubai Marina</span><span class="exp-project-meta">Client: TTOA · Consultant: NEB</span></div>
+          <div class="exp-project"><span class="exp-tag t-infrastructure">Infrastructure</span><span class="exp-project-name">LOC, Abu Dhabi</span><span class="exp-project-meta">Client: Sanad · Gencon: Besix</span></div>
+          <div class="exp-project"><span class="exp-tag t-highrise">High-Rise</span><span class="exp-project-name">One Zaabeel Tower</span><span class="exp-project-meta">Landmark mixed-use development</span></div>
+          <div class="exp-project"><span class="exp-tag t-fitout">Fit-Out</span><span class="exp-project-name">O Beach, Al Habtoor Grand Resort</span><span class="exp-project-meta">Dubai Marina</span></div>
+          <div class="exp-project"><span class="exp-tag t-highrise">High-Rise</span><span class="exp-project-name">Bluewaters</span><span class="exp-project-meta">Client: Meraas</span></div>
+          <div class="exp-project"><span class="exp-tag t-fitout">Fit-Out</span><span class="exp-project-name">EXPO 2020</span><span class="exp-project-meta">Pavilion fit-out &amp; infrastructure</span></div>
+          <div class="exp-project"><span class="exp-tag t-infrastructure">Infrastructure</span><span class="exp-project-name">The Gardens — Jebel Ali</span><span class="exp-project-meta">Client: Nakheel · Consultant: Mirage</span></div>
+          <div class="exp-project"><span class="exp-tag t-highrise">High-Rise</span><span class="exp-project-name">City Walk — Buildings B3 &amp; B6</span><span class="exp-project-meta">Client: Meraas · Consultant: North 25</span></div>
+          <div class="exp-project"><span class="exp-tag t-fitout">Fit-Out</span><span class="exp-project-name">M4 Redevelopment (The Beach), JBR</span><span class="exp-project-meta">Client: Meraas · Consultant: North 25</span></div>
+          <div class="exp-project"><span class="exp-tag t-recladding">Recladding</span><span class="exp-project-name">Duja Tower — Recladding &amp; Fire Rectification</span><span class="exp-project-meta">Client: Lootah · Consultant: NEB</span></div>
+          <div class="exp-project"><span class="exp-tag t-recladding">Recladding</span><span class="exp-project-name">Torch Tower 3 — Recladding, Dubai Marina</span><span class="exp-project-meta">Client: TTOA · Consultant: NEB</span></div>
 </div>
       </article>
 
@@ -1185,7 +1254,7 @@ section + section { border-top: 1px solid var(--line); }
 </div>
 </div>
         <div class="exp-projects">
-          <div class="exp-project"><span class="exp-project-name">Al Waha School</span><span class="exp-project-meta">Client: Ministry of Education · Consultant: Selbar</span></div>
+          <div class="exp-project"><span class="exp-tag t-government">Government</span><span class="exp-project-name">Al Waha School</span><span class="exp-project-meta">Client: Ministry of Education · Consultant: Selbar</span></div>
 </div>
       </article>
 
@@ -1199,7 +1268,7 @@ section + section { border-top: 1px solid var(--line); }
 </div>
 </div>
         <div class="exp-projects">
-          <div class="exp-project"><span class="exp-project-name">MBR Solar Park — Noor Energy 1, 700MW CSP</span><span class="exp-project-meta">Client: Noor Energy · Contractor: Shanghai Electric</span></div>
+          <div class="exp-project"><span class="exp-tag t-energy">Energy</span><span class="exp-project-name">MBR Solar Park — Noor Energy 1, 700MW CSP</span><span class="exp-project-meta">Client: Noor Energy · Contractor: Shanghai Electric</span></div>
 </div>
       </article>
 
@@ -1213,7 +1282,7 @@ section + section { border-top: 1px solid var(--line); }
 </div>
 </div>
         <div class="exp-projects">
-          <div class="exp-project"><span class="exp-project-name">Torch Tower 1 — Recladding &amp; Fire Rectification</span><span class="exp-project-meta">Client: TTOA · Consultant: NEB</span></div>
+          <div class="exp-project"><span class="exp-tag t-recladding">Recladding</span><span class="exp-project-name">Torch Tower 1 — Recladding &amp; Fire Rectification</span><span class="exp-project-meta">Client: TTOA · Consultant: NEB</span></div>
 </div>
       </article>
 
@@ -1227,7 +1296,7 @@ section + section { border-top: 1px solid var(--line); }
 </div>
 </div>
         <div class="exp-projects">
-          <div class="exp-project"><span class="exp-project-name">Emirates Steel Industries</span><span class="exp-project-meta">Heavy industry, Abu Dhabi</span></div>
+          <div class="exp-project"><span class="exp-tag t-industrial">Industrial</span><span class="exp-project-name">Emirates Steel Industries</span><span class="exp-project-meta">Heavy industry, Abu Dhabi</span></div>
 </div>
       </article>
 
@@ -1241,11 +1310,11 @@ section + section { border-top: 1px solid var(--line); }
 </div>
 </div>
         <div class="exp-projects">
-          <div class="exp-project"><span class="exp-project-name">Al Mahawi Military Camp</span><span class="exp-project-meta">7× G+7 + military school + GHQ · Client: Command of Military Works</span></div>
-          <div class="exp-project"><span class="exp-project-name">Jumeirah Plaza Residence</span><span class="exp-project-meta">2× 10F + 1× 16F · Client: Cayan · Consultant: NEB</span></div>
-          <div class="exp-project"><span class="exp-project-name">Dome Tower, JLT</span><span class="exp-project-meta">3B + 41F · Client: Al Serkal · Consultant: DEC</span></div>
-          <div class="exp-project"><span class="exp-project-name">Arbift Tower, Dubai Marina</span><span class="exp-project-meta">3B + 31F · Client: Al Mashraf · Consultant: Hegazy</span></div>
-          <div class="exp-project"><span class="exp-project-name">Silverene Tower — Enabling Works</span><span class="exp-project-meta">3B + 32F · Client: Cayan · Consultant: RMJM</span></div>
+          <div class="exp-project"><span class="exp-tag t-military">Military</span><span class="exp-project-name">Al Mahawi Military Camp</span><span class="exp-project-meta">7× G+7 + military school + GHQ · Client: Command of Military Works</span></div>
+          <div class="exp-project"><span class="exp-tag t-highrise">High-Rise</span><span class="exp-project-name">Jumeirah Plaza Residence</span><span class="exp-project-meta">2× 10F + 1× 16F · Client: Cayan · Consultant: NEB</span></div>
+          <div class="exp-project"><span class="exp-tag t-highrise">High-Rise</span><span class="exp-project-name">Dome Tower, JLT</span><span class="exp-project-meta">3B + 41F · Client: Al Serkal · Consultant: DEC</span></div>
+          <div class="exp-project"><span class="exp-tag t-highrise">High-Rise</span><span class="exp-project-name">Arbift Tower, Dubai Marina</span><span class="exp-project-meta">3B + 31F · Client: Al Mashraf · Consultant: Hegazy</span></div>
+          <div class="exp-project"><span class="exp-tag t-highrise">High-Rise</span><span class="exp-project-name">Silverene Tower — Enabling Works</span><span class="exp-project-meta">3B + 32F · Client: Cayan · Consultant: RMJM</span></div>
 </div>
       </article>
 
@@ -1259,8 +1328,8 @@ section + section { border-top: 1px solid var(--line); }
 </div>
 </div>
         <div class="exp-projects">
-          <div class="exp-project"><span class="exp-project-name">The Palm Jumeirah — Shoreline Apartments</span><span class="exp-project-meta">Nakheel waterfront development</span></div>
-          <div class="exp-project"><span class="exp-project-name">The Avenues, Kuwait</span><span class="exp-project-meta">Largest shopping mall project in Kuwait at the time</span></div>
+          <div class="exp-project"><span class="exp-tag t-highrise">High-Rise</span><span class="exp-project-name">The Palm Jumeirah — Shoreline Apartments</span><span class="exp-project-meta">Nakheel waterfront development</span></div>
+          <div class="exp-project"><span class="exp-tag t-infrastructure">Infrastructure</span><span class="exp-project-name">The Avenues, Kuwait</span><span class="exp-project-meta">Largest shopping mall project in Kuwait at the time</span></div>
 </div>
       </article>
 
