@@ -1033,28 +1033,6 @@ section + section { border-top: 1px solid var(--line); }
   flex-wrap: wrap;
 }
 
-/* ───── Intro warp (one-time entrance) ───── */
-#introWarp {
-  position: fixed; inset: 0;
-  z-index: 9999;
-  background: #061a31;
-  display: grid; place-items: center;
-  transition: opacity 550ms ease, transform 550ms ease;
-}
-#introWarp canvas { display: block; width: 100%; height: 100%; }
-#introWarp.fade-out { opacity: 0; transform: scale(1.08); pointer-events: none; }
-body.intro-lock { overflow: hidden; }
-body.intro-lock .hero-eyebrow,
-body.intro-lock .hero-name,
-body.intro-lock .hero-positioning,
-body.intro-lock .hero-tagline,
-body.intro-lock .hero-cta,
-body.intro-lock .hero-trust,
-body.intro-lock .hero-portrait-wrap {
-  opacity: 0 !important;
-  animation: none !important;
-}
-
 /* ───── Fade-up reveal ───── */
 .reveal {
   opacity: 0;
@@ -1073,17 +1051,6 @@ body.intro-lock .hero-portrait-wrap {
   }
   .hero-aurora { animation: none; }
   .exp-list::after { height: 100% !important; transition: none; }
-  #introWarp { display: none !important; }
-  body.intro-lock { overflow: visible; }
-  body.intro-lock .hero-eyebrow,
-  body.intro-lock .hero-name,
-  body.intro-lock .hero-positioning,
-  body.intro-lock .hero-tagline,
-  body.intro-lock .hero-cta,
-  body.intro-lock .hero-trust,
-  body.intro-lock .hero-portrait-wrap {
-    opacity: 1 !important;
-  }
 }
 
 /* ───── Responsive ───── */
@@ -1142,7 +1109,7 @@ body.intro-lock .hero-portrait-wrap {
 
 /* Print */
 @media print {
-  .nav, .hero-cta, .hero-trust, .contact, .footer, .nav-toggle, .hero-portrait-badge, .hero::before, .hero-aurora, #introWarp { display: none; }
+  .nav, .hero-cta, .hero-trust, .contact, .footer, .nav-toggle, .hero-portrait-badge, .hero::before, .hero-aurora { display: none; }
   body { background: #fff; color: #000; }
   .hero { padding: 24px 0; }
   .hero-eyebrow, .hero-name, .hero-positioning, .hero-tagline { animation: none; }
@@ -1157,15 +1124,6 @@ body.intro-lock .hero-portrait-wrap {
 </style>
 </head>
 <body>
-<script>
-  window.__warpIntro = false;
-  try {
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('warpIntroSeen')) {
-      window.__warpIntro = true;
-      document.body.classList.add('intro-lock');
-    }
-  } catch (e) {}
-</script>
 
 <noscript>
   <div style="background:#fef3ed;color:#9a3409;padding:10px 22px;font-size:13px;border-bottom:1px solid #fcd5b8;text-align:center;font-weight:500">
@@ -1762,74 +1720,6 @@ body.intro-lock .hero-portrait-wrap {
 </footer>
 
 <script>
-  // intro warp — one-time "flying into space" entrance
-  if (window.__warpIntro) {
-    try { sessionStorage.setItem('warpIntroSeen', '1'); } catch (e) {}
-
-    const overlay = document.createElement('div');
-    overlay.id = 'introWarp';
-    overlay.setAttribute('aria-hidden', 'true');
-    const canvas = document.createElement('canvas');
-    overlay.appendChild(canvas);
-    document.body.appendChild(overlay);
-
-    const ctx = canvas.getContext('2d');
-    function resizeWarp() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeWarp();
-    window.addEventListener('resize', resizeWarp);
-
-    const STAR_COUNT = 240;
-    const stars = Array.from({ length: STAR_COUNT }, () => ({
-      angle: Math.random() * Math.PI * 2,
-      z: Math.random() * 900 + 50,
-      speed: 1.5 + Math.random() * 2.5,
-      gold: Math.random() < 0.22
-    }));
-
-    const warpStart = performance.now();
-    const DURATION = 1500;
-
-    function warpFrame(now) {
-      const elapsed = now - warpStart;
-      const accel = 1 + elapsed / 500;
-      const cx = canvas.width / 2, cy = canvas.height / 2;
-
-      ctx.fillStyle = 'rgba(6,26,49,0.32)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      stars.forEach(s => {
-        const prevZ = s.z;
-        s.z -= s.speed * accel * 6;
-        if (s.z < 1) { s.z = 900; s.angle = Math.random() * Math.PI * 2; }
-        const k = 260;
-        const scale = k / s.z;
-        const prevScale = k / prevZ;
-        const x = cx + Math.cos(s.angle) * scale * canvas.width * 0.5;
-        const y = cy + Math.sin(s.angle) * scale * canvas.height * 0.5;
-        const px = cx + Math.cos(s.angle) * prevScale * canvas.width * 0.5;
-        const py = cy + Math.sin(s.angle) * prevScale * canvas.height * 0.5;
-        ctx.strokeStyle = s.gold ? 'rgba(176,131,68,0.9)' : 'rgba(255,255,255,0.85)';
-        ctx.lineWidth = Math.min(scale * 2.2, 2.6);
-        ctx.beginPath();
-        ctx.moveTo(px, py);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-      });
-
-      if (elapsed < DURATION) {
-        requestAnimationFrame(warpFrame);
-      } else {
-        overlay.classList.add('fade-out');
-        document.body.classList.remove('intro-lock');
-        setTimeout(() => overlay.remove(), 600);
-      }
-    }
-    requestAnimationFrame(warpFrame);
-  }
-
   // year
   document.getElementById('yr').textContent = new Date().getFullYear();
 
