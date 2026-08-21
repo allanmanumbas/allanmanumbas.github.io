@@ -448,48 +448,6 @@ section + section { border-top: 1px solid var(--line); }
   color: var(--navy);
   letter-spacing: -0.005em;
 }
-@keyframes badgeIn {
-  from { opacity: 0; transform: translate(12px, -10px) scale(.94); }
-  to   { opacity: 1; transform: translate(0, 0) scale(1); }
-}
-.hero-portrait-badge {
-  position: absolute;
-  top: -18px; right: -18px;
-  background: var(--navy);
-  color: #fff;
-  padding: 12px 16px;
-  border-radius: 4px;
-  box-shadow: var(--shadow-lg);
-  display: flex; align-items: center; gap: 10px;
-  max-width: 190px;
-  animation: badgeIn var(--dur-slow) var(--ease-spring) 600ms both;
-}
-.hero-portrait-badge .badge-ic {
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: var(--orange);
-  color: #fff;
-  display: grid; place-items: center;
-  font-family: var(--serif); font-style: italic; font-weight: 500;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-.hero-portrait-badge .txt {
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.35;
-}
-.hero-portrait-badge .txt .sub {
-  display: block;
-  font-family: var(--mono);
-  font-weight: 500;
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #9fb3cb;
-  margin-top: 2px;
-}
-
 /* ───── Stats strip ───── */
 .stats {
   background: var(--navy);
@@ -1178,7 +1136,7 @@ section + section { border-top: 1px solid var(--line); }
     animation: none;
   }
   .hero-aurora { animation: none; }
-  .hero-portrait, .hero-portrait-badge, .hero-portrait-stamp { animation: none; clip-path: none !important; transform: none !important; }
+  .hero-portrait, .hero-portrait-stamp { animation: none; clip-path: none !important; transform: none !important; }
   .hero-portrait-wrap:hover .hero-portrait img { transform: none; }
   .hero-portrait-wrap { transform: none !important; }
   .exp-list::after { height: 100% !important; transition: none; }
@@ -1249,7 +1207,6 @@ section + section { border-top: 1px solid var(--line); }
   .hero-tagline { font-size: 15px; }
   .hero-portrait { width: 220px; height: 280px; }
   .hero-portrait-stamp { display: none; }
-  .hero-portrait-badge { display: none; }
   .stat { padding: 28px 24px; }
   .stat-fig { font-size: 36px; }
   .stat-fig .suf { font-size: 20px; }
@@ -1267,7 +1224,7 @@ section + section { border-top: 1px solid var(--line); }
 
 /* Print */
 @media print {
-  .nav, .hero-cta, .hero-trust, .contact, .footer, .nav-toggle, .hero-portrait-badge, .hero::before, .hero-aurora, .back-to-top { display: none; }
+  .nav, .hero-cta, .hero-trust, .contact, .footer, .nav-toggle, .hero::before, .hero-aurora, .back-to-top { display: none; }
   body { background: #fff; color: #000; opacity: 1; }
   .hero { padding: 24px 0; }
   .hero-eyebrow, .hero-name, .hero-positioning, .hero-tagline, .hero-portrait, .hero-portrait-stamp { animation: none; }
@@ -1348,10 +1305,6 @@ section + section { border-top: 1px solid var(--line); }
       <div class="hero-portrait-wrap">
         <div class="hero-portrait">
           <img src="logos/portrait.png" alt="Allan E. Manumbas, Senior HSE Professional">
-</div>
-        <div class="hero-portrait-badge">
-          <span class="badge-ic">8</span>
-          <span class="txt">Credentials held<span class="sub">incl. ISO Lead Auditor</span></span>
 </div>
         <div class="hero-portrait-stamp">
           <span class="lbl">Current role</span>
